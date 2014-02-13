@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "AppKitActor"
   s.version          = "0.0.1"
-  s.summary          = "A short description of AppKitActor."
+  s.summary          = "AppKitActor is an integration test framework for AppKit applications.."
   s.description      = <<-DESC
                        **AppKitActor** is an integration test framework for AppKit applications. It allows for easy automation of Mac OS X applications UI tests, helping developers check the state of UI elements and interact with `NSWindows` and `NSViews`.
                        DESC
