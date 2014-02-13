@@ -12,10 +12,10 @@ It leverages the NSAccessibility to identify views and windows, check their stat
 # Features
 
 ## Flexible matchers
-Match views, controls and windows by their accessibility traits, values or class. Matchers can be combined using with `AND` and `OR` to build complex conditions.
+Match views, controls and windows by their accessibility traits, values or class. Matchers can be conbined using *AND* and *OR* operations to build complex conditions.
 
 ## Containment aware
-Identify specific views inside specific –or matching– windows and superviews.
+**AppKitActor** can narrow down view matching to identify only those views inside specific –or matching– windows and superviews.
 
 ## Lenient on the UI's timing
 Don't fill your test code with sleeps to allow time for AppKit to animate changes or react to actions. **AppKitActor** waits for a reasonable time –10 seconds– for the UI to match the expected check, interspersing time for the main thread to run and retries.
@@ -30,7 +30,7 @@ Verify UI elements across multiple windows, including the *Status Bar*.
 
 
 ## Why not KIF?
-[KIF](https://github.com/kif-framework/KIF) is an excellent framework for iOS, but it is not so easy to decouple from from UIKit.
+[KIF](https://github.com/kif-framework/KIF) is an excellent framework for iOS, but it is not so easy to decouple it from UIKit.
 
 - The NSAccessibility API is very different from UIAccessibility. You get to appreciate the simplicity of `UIView` when you have to face.
 - **AppKitActor** needs to deal with far more widows at the same time in the screen.
@@ -43,11 +43,11 @@ Verify UI elements across multiple windows, including the *Status Bar*.
 
 AppKitActor is available through [CocoaPods](http://cocoapods.org). To install it simply add the following lines to your Podfile indicating the appropriate target for your acceptance tests:
 
-	```ruby
-	target 'Acceptance Tests', :exclusive => true do
-		pod 'AppKitActor', '~> 0.1.0'
-	end
-	```
+```ruby
+target 'Acceptance Tests', :exclusive => true do
+	pod 'AppKitActor', '~> 0.1.0'
+end
+```
 
 
 
@@ -59,9 +59,9 @@ AppKitActor is available through [CocoaPods](http://cocoapods.org). To install i
 
 Import the framework header file on your test files, or your acceptance test's target .pch.
 
-	```objective-c
-	#import <AppKitActor/AppKitActor.h>
-	```
+```objective-c
+ #import <AppKitActor/AppKitActor.h>
+```
 
 ## Actor Macros
 
@@ -76,31 +76,30 @@ Use the `system` macro as an entry point to interact with the application itself
 
 Methods of family `-waitForViewMatching:` check for a view matching the given `<AKAViewMatcher>` definition in any window of the application.
 
-	```objective-c
-	id<AKAViewMatcher> viewMatcher = [AKAAccessibilityMatcher matcherWithHelp:@"This is a tooltip"];
-	[tester waitForViewMatching:viewMatcher];
-
-	```
+```objective-c
+id<AKAViewMatcher> viewMatcher = [AKAAccessibilityMatcher matcherWithHelp:@"This is a tooltip"];
+[tester waitForViewMatching:viewMatcher];
+```
 
 Narrow the view to only that inside a given superview:
 
-	```objective-c
-	id<AKAViewMatcher> viewMatcher = [AKAAccessibilityMatcher matcherWithHelp:@"This is a tooltip"];
-	[tester waitForViewMatching:viewMatcher];
-	```
+```objective-c
+id<AKAViewMatcher> viewMatcher = [AKAAccessibilityMatcher matcherWithHelp:@"This is a tooltip"];
+[tester waitForViewMatching:viewMatcher];
+```
 
 Alternatively, the match can be narrowed by providing the containing window:
 
-	```objective-c
-	[tester waitForViewMatching:viewMatcher inWindow:aWindow];
-	```
+```objective-c
+[tester waitForViewMatching:viewMatcher inWindow:aWindow];
+```
 
 The containing window can even be defined as an `<AKAWindowMatcher>` itself, which makes testing far more flexible:
 
-	```objective-c
-	id<AKAWindowMatcher> windowMatcher = [AKANSWindowTitleMatcher matcherWithTitle:@"My Document"];
-	[tester waitForViewMatching:viewMatcher inWindowMatching:windowMatcher];
-	```
+```objective-c
+id<AKAWindowMatcher> windowMatcher = [AKANSWindowTitleMatcher matcherWithTitle:@"My Document"];
+[tester waitForViewMatching:viewMatcher inWindowMatching:windowMatcher];
+```
 
 By default `<AKAUITestActor>` will try to locate the view every 0.1 second for a maximum of 10 seconds, pausing to let the main thread execute the UI code. If the maximum time allowed expires without the actor being able to locate the matching view, a failure is recorded and the test moves on. This failure will be reflected on Xcode, pointing to the line where the `tester` macro was used.
 
