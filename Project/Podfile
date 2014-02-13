@@ -1,0 +1,7 @@
+pod "AppKitActor", :path => "../AppKitActor.podspec"
+
+target "Demo" do
+end
+
+target "DemoTests" do
+end
